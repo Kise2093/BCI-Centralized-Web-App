@@ -1,1 +1,4 @@
-# BCI-Centralized-Web-App
+ # BCI-Centralized-Web-App
+Deployment process writen by Kris Jermvivatkul 
+03/02/2021
+iknowplus
