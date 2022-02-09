@@ -3,15 +3,23 @@
 
 helm repo add gitlab https://charts.gitlab.io/
 helm repo update
-helm upgrade --install gitlab gitlab/gitlab \
+helm -n gitlab upgrade --install gitlab gitlab/gitlab \
   --timeout 600s \
   --set global.edition=ce \
-  --set global.hosts.domain=example.com \
-  --set global.hosts.externalIP=10.10.10.10 \
+  --set global.hosts.domain=gitlab.bci.ikp.com \
+  --set global.hosts.externalIP=10.1.0.150 \
   --set certmanager-issuer.email=kris@iknowplus.co.th
 
 
 helm status gitlab
+
+helm upgrade --install gitlab gitlab/gitlab \
+  --timeout 600s \
+  --set global.edition=ce \
+  --set global.hosts.domain=example.com \
+  #--set global.hosts.externalIP=10.10.10.10 \
+  #--set certmanager-issuer.email=kris@iknowplus.co.th
+  --set global.ingress.configureCertmanager=false
 
 #Steps after installation https://docs.gitlab.com/ee/install/next_steps.html
 #Setup runners
