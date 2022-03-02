@@ -26,3 +26,29 @@ helm upgrade --install gitlab gitlab/gitlab \
 #Gitlab Pages
 #Gitlab Registry
 #Gitlab Dependency Proxy
+
+helm upgrade --install -n gitlab gitlab gitlab/gitlab \
+  --set global.edition=ce \
+  --set global.hosts.domain=bci.ikp.com \
+  --set certmanager-issuer.email=kris@iknowplus.co.th
+  --set global.ingress.configureCertmanager=false
+
+helm -n gitlab install gitlab gitlab/gitlab \
+  --set certmanager.install=false \
+  --set global.ingress.configureCertmanager=false \
+  --set certmanager-issuer.email=kris@iknowplus.co.th \
+  --set global.hosts.domain=bci.ikp.com \
+  --set global.ingress.annotations."kubernetes\.io/tls-acme"=true \
+  --set global.ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt-production \
+  --set gitlab.webservice.ingress.tls.secretName=gitlab-gitlab-tls \
+  --set registry.ingress.tls.secretName=gitlab-registry-tls \
+  --set minio.ingress.tls.secretName=gitlab-minio-tls \
+  --set gitlab-runner.install=false
+
+helm upgrade --install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.7.1 \
+  --set installCRDs=true \
+  --set 'extraArgs={--acme-http01-solver-nameservers=10.1.0.13:53\,10.96.0.10:53\,192.168.1.1:53}'

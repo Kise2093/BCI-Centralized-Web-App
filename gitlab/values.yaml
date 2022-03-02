@@ -36,7 +36,7 @@ global:
     labels: {}
 
   ## https://docs.gitlab.com/charts/installation/deployment#deploy-the-community-edition
-  edition: ee
+  edition: ce
 
   ## https://docs.gitlab.com/charts/charts/globals#gitlab-version
   # gitlabVersion:
@@ -48,7 +48,7 @@ global:
     allowClusterRoles: true
   ## https://docs.gitlab.com/charts/charts/globals#configure-host-settings
   hosts:
-    domain: example.com
+    domain: bci.ikp.com
     hostSuffix:
     https: true
     externalIP:
@@ -64,7 +64,7 @@ global:
   ## https://docs.gitlab.com/charts/charts/globals#configure-ingress-settings
   ingress:
     apiVersion: ""
-    configureCertmanager: true
+    configureCertmanager: false
     provider: nginx
     annotations: {}
     enabled: true
@@ -701,11 +701,11 @@ upgradeCheck:
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
 certmanager:
-  installCRDs: true
+  installCRDs: false
   nameOverride: certmanager
   # Install cert-manager chart. Set to false if you already have cert-manager
   # installed or if you are not using cert-manager.
-  install: true
+  install: false
   # Other cert-manager configurations from upstream
   # See https://github.com/jetstack/cert-manager/blob/master/deploy/charts/cert-manager/README#configuration
   rbac:
