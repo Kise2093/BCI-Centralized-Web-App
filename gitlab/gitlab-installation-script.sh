@@ -45,6 +45,19 @@ helm -n gitlab install gitlab gitlab/gitlab \
   --set minio.ingress.tls.secretName=gitlab-minio-tls \
   --set gitlab-runner.install=false
 
+#current
+
+helm -n gitlab install gitlab gitlab/gitlab \
+  --set certmanager.install=false \
+  --set global.ingress.configureCertmanager=false \
+  --set certmanager-issuer.email=kris@iknowplus.co.th \
+  --set global.hosts.domain=bci.ikp.com \
+  --set global.ingress.annotations."cert-manager\.io/cluster-issuer"=letsencrypt \
+  --set gitlab.webservice.ingress.tls.secretName=gitlab-gitlab-tls \
+  --set registry.ingress.tls.secretName=gitlab-registry-tls \
+  --set minio.ingress.tls.secretName=gitlab-minio-tls \
+  --set gitlab-runner.install=false
+
 helm upgrade --install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
